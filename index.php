@@ -13,9 +13,27 @@ require_once("config.php");
 $usuarios = $sql->select("SELECT * FROM tb_user");
 echo var_dump($usuarios);*/
 
-$user = new Usuario();
-$user->loadById(19);
-echo $user;
+// Carrega um Usuário
+//$user = new Usuario();
+//$user->loadById(19);
+//echo $user;
+
+// Carrega um lista de usuarios
+//$lista = Usuario::getList();
+//echo print_r($lista);
+
+//$search = Usuario::search("05");
+//echo json_encode($search);
+
+
+$usuario = new Usuario();
+$usuario->login("user03", "senh03");
+
+echo $usuario;
+
+
+
+
 ?>
 </body>
 </html>
