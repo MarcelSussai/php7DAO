@@ -40,7 +40,9 @@ class Usuario {
             ":ID"=>$id
         ));
         if (count($results) > 0) {
+
             $row = $results[0];
+
             $this->setIdUser($row['iduser']);
             $this->setVcLogin($row['vclogin']);
             $this->setVcSenha($row['vcsenha']);
@@ -68,15 +70,30 @@ public function login($vclogin, $vcsenha){
     ));
     if (count($results) > 0) {
         $row = $results[0];
-        $this->setIdUser($row['iduser']);
-        $this->setVcLogin($row['vclogin']);
-        $this->setVcSenha($row['vcsenha']);
-        $this->setDtCadastro(new DateTime($row['dtcadastro']));
+        $this->setData($results[0]);
     } else {
         throw new Exception("Login ou senha inválidos!");
     }
 
 }
+
+    public function setData($data){
+        $this->setIdUser($data['iduser']);
+        $this->setVcLogin($data['vclogin']);
+        $this->setVcSenha($data['vcsenha']);
+        $this->setDtCadastro(new DateTime($data['dtcadastro']));
+    }
+
+    public function insert(){
+        $sql = new Sql();
+        $results = $sql->select("CALL sp_tb_user_insert(:LOGIN, :PASS)", array(
+            ':LOGIN'=>$this->getVcLogin(),
+            ':PASS'=>$this->getVcSenha()
+        ));
+        if (count($results) > 0) {
+            $this->setData($results[0]);
+        }
+    }
 
     public function __toString() {
         return json_encode(array(

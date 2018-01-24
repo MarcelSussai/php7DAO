@@ -25,14 +25,18 @@ echo var_dump($usuarios);*/
 //$search = Usuario::search("05");
 //echo json_encode($search);
 
-
+/*
 $usuario = new Usuario();
 $usuario->login("user03", "senh03");
-
 echo $usuario;
+*/
 
+$aluno = new Usuario();
+$aluno->setVcLogin("aluno");
+$aluno->setVcSenha("@alun1");
+$aluno->insert();
 
-
+echo $aluno;
 
 ?>
 </body>
