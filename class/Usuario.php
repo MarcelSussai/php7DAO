@@ -106,6 +106,18 @@ class Usuario {
         ));
     }
 
+    public function delete(){
+        $sql = new Sql();
+        $sql->query("DELETE FROM tb_user WHERE iduser = :ID", array(
+            ':ID'=>$this->getIdUser()
+        ));
+        $this->setIdUser(0);
+        $this->setVcLogin("");
+        $this->setVcSenha("");
+        $this->setDtCadastro(new DateTime());
+
+    }
+
     public function __construct($login = "",$pass = "") {
         $this->setVcLogin($login);
         $this->setVcSenha($pass);
