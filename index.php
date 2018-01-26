@@ -40,7 +40,7 @@ $usuario = new Usuario();
 $usuario->loadById(27);
 $usuario->update("Mestre", "kalpasdebudas");
 
-
+echo $usuario;
 
 ?>
 </body>
