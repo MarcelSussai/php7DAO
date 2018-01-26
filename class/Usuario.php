@@ -62,20 +62,20 @@ class Usuario {
         ));
     }
 
-public function login($vclogin, $vcsenha){
-    $sql = new Sql();
-    $results = $sql->select("SELECT * FROM tb_user WHERE vclogin = :LOG AND vcsenha = :PASS", array(
-        ":LOG"=>$vclogin,
-        ":PASS"=>$vcsenha
-    ));
-    if (count($results) > 0) {
-        $row = $results[0];
-        $this->setData($results[0]);
-    } else {
-        throw new Exception("Login ou senha inválidos!");
-    }
+    public function login($vclogin, $vcsenha){
+        $sql = new Sql();
+        $results = $sql->select("SELECT * FROM tb_user WHERE vclogin = :LOG AND vcsenha = :PASS", array(
+            ":LOG"=>$vclogin,
+            ":PASS"=>$vcsenha
+        ));
+        if (count($results) > 0) {
+            $row = $results[0];
+            $this->setData($results[0]);
+        } else {
+            throw new Exception("Login ou senha inválidos!");
+        }
 
-}
+    }
 
     public function setData($data){
         $this->setIdUser($data['iduser']);
@@ -94,6 +94,23 @@ public function login($vclogin, $vcsenha){
             $this->setData($results[0]);
         }
     }
+
+    public function update($login, $pass){
+        $this->setVcLogin($login);
+        $this->setVcSenha($pass);
+        $sql = new Sql();
+        $sql->query("UPDATE tb_user SET vclogin = :LOGI, vcsenha = :PASS WHERE iduser = :ID", array(
+            ':LOGI'=>$this->getVcLogin(),
+            ':PASS'=>$this->getVcSenha(),
+            ':ID'=>$this->getIdUser()
+        ));
+    }
+
+    public function __construct($login = "",$pass = "") {
+        $this->setVcLogin($login);
+        $this->setVcSenha($pass);
+    }
+
 
     public function __toString() {
         return json_encode(array(

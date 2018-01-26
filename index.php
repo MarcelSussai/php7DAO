@@ -30,13 +30,17 @@ $usuario = new Usuario();
 $usuario->login("user03", "senh03");
 echo $usuario;
 */
-
-$aluno = new Usuario();
-$aluno->setVcLogin("aluno");
-$aluno->setVcSenha("@alun1");
+/*
+$aluno = new Usuario("aluno3","@alun3");
 $aluno->insert();
-
 echo $aluno;
+*/
+
+$usuario = new Usuario();
+$usuario->loadById(27);
+$usuario->update("Mestre", "kalpasdebudas");
+
+
 
 ?>
 </body>
